@@ -172,11 +172,7 @@ static int curlGet(const FetchArgument &argument, FetchResult &result)
     {
         for(auto &x : *argument.request_headers)
         {
-            if (strcasecmp(x.first.c_str(), "Referer") == 0 ||
-            strcasecmp(x.first.c_str(), "X-Forwarded-For") == 0 ||
-            strcasecmp(x.first.c_str(), "X-Forwarded-Port") == 0 ||
-            strcasecmp(x.first.c_str(), "X-Forwarded-Proto") == 0 ||
-            strcasecmp(x.first.c_str(), "X-Real-IP") == 0){
+            if (strcasecmp(x.first.c_str(), "Referer") == 0 || strcasecmp(x.first.c_str(), "X-Forwarded-For") == 0 || strcasecmp(x.first.c_str(), "X-Forwarded-Port") == 0 || strcasecmp(x.first.c_str(), "X-Forwarded-Proto") == 0 || strcasecmp(x.first.c_str(), "X-Real-IP") == 0){
                 continue;
             }
             auto header = x.first + ": " + x.second;
