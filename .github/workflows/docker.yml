@@ -10,8 +10,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  REGISTRY_IMAGE: metacubex/subconverter
-  GHCR_IMAGE: ghcr.io/metacubex/subconverter
+  REGISTRY_IMAGE: yipszeho/subconverter
+  GHCR_IMAGE: ghcr.io/yipszeho/subconverter
 
 jobs:
   build-dockerhub:
@@ -35,7 +35,7 @@ jobs:
           echo "PLATFORM_PAIR=${platform//\//-}" >> $GITHUB_ENV    
 
       - name: Checkout base
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
@@ -79,7 +79,7 @@ jobs:
           digest="${{ steps.build.outputs.digest }}"
           touch "/tmp/digests-dockerhub/${digest#sha256:}"
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: digest-dockerhub-${{ env.PLATFORM_PAIR }}
           path: /tmp/digests-dockerhub/*
@@ -107,7 +107,7 @@ jobs:
           echo "PLATFORM_PAIR=${platform//\//-}" >> $GITHUB_ENV    
 
       - name: Checkout base
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
@@ -152,7 +152,7 @@ jobs:
           digest="${{ steps.build.outputs.digest }}"
           touch "/tmp/digests-ghcr/${digest#sha256:}"
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: digest-ghcr-${{ env.PLATFORM_PAIR }}
           path: /tmp/digests-ghcr/*
@@ -165,7 +165,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download digests
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           path: /tmp/digests-dockerhub
           pattern: digest-dockerhub-*
@@ -202,7 +202,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download digests
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           path: /tmp/digests-ghcr
           pattern: digest-ghcr-*
